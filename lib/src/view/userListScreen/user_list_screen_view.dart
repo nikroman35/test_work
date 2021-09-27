@@ -3,60 +3,108 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_work/src/view/userListScreen/bloc.dart';
 import 'package:test_work/src/view/userListScreen/state.dart';
 
-class UserListScreenView extends StatelessWidget {
+class UserListScreenView extends StatefulWidget {
   const UserListScreenView({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return UserListScreenViewState();
+  }
+}
+
+class UserListScreenViewState extends State<UserListScreenView> {
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocConsumer<UserListBlock, UserListState>(
-            listener: (context, state) {
+    return initView(context);
+  }
+
+  Widget initView(BuildContext context) {
+    return BlocConsumer<UserListBloc, UserListState>(
+        listener: (context, state) {
           if (state is UserLogoutSuccess) {
             // LOGOUT
           } else if (state is UserLogoutFailure) {
             //print error
           }
         }, builder: (context, state) {
-          if (state is UserListLoading) {
-            return Container(
-              color: Colors.red,
-              width: 40,
-              height: 50,
-            );
-          } else if (state is UserListSuccess) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+      if (state is UserListLoading) {
+        return Container(
+          color: Colors.red,
+          width: 40,
+          height: 50,
+        );
+      } else if (state is UserListSuccess) {
+        return Scaffold(
+          appBar: customAppBar(state.localuser),
+          body: SafeArea(
+            child: Column(
               children: [
-                Container(
-                  child: const Center(
-                      child: Text(
-                    "fluutter kal",
-                    textAlign: TextAlign.center,
-                  )),
-                  height: 50,
-                  color: Colors.amberAccent,
-                  width: double.infinity,
-                ),
                 Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return ListItem(state.users[index].name?.title ?? "");
-                    },
-                    itemCount: state.users.length,
+                  child: RefreshIndicator (
+                    onRefresh: () => pullToRefresh(),
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return ListItem(state.users[index].name?.title ?? "");
+                      },
+                      itemCount: state.users.length,
+                    ),
                   ),
                 ),
               ],
-            );
-          } else {
-            return Container();
-            // printError
-          }
-        }),
-      ),
-    );
+            ),
+          ),
+        );
+      } else {
+        return Container();
+        // printError
+      }
+    });
   }
+
+  PreferredSizeWidget customAppBar(String text) {
+    var appBar = AppBar(
+      title: Text(text, textAlign: TextAlign.center,),
+      leading: GestureDetector(
+        onTap: logoutButtonTap,
+        child: const Icon(Icons.logout), // Listner
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: GestureDetector(
+            onTap: searchButtonTap,
+            child: const Icon(Icons.search),
+          ),
+        )
+      ],
+    );
+    return appBar;
+  }
+
+
+  void searchButtonTap() {}
+
+  void logoutButtonTap() {}
+
+  Future<void> pullToRefresh() async {
+    setState(() {
+      print("refresh");
+    });
+  }
+}
+
+class CustomSearchBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomSearchBar({Key? key}) : super(key: key);
+
+  @override
+  Size get preferredSize => Size.fromHeight(double.infinity);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField();
+  }
+
 }
 
 class ListItem extends StatelessWidget {

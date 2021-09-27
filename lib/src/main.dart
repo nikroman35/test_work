@@ -21,6 +21,7 @@ Future setupStorage() async {
   await Hive.initFlutter();
   var userStorage = UserStorage();
   await userStorage.openBox();
+  userStorage.userName = "Вован";
 }
 
 class SampleApp extends StatelessWidget {
@@ -35,7 +36,7 @@ class SampleApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (_) => UserListBlock(),
+        create: (_) => UserListBloc(),
         child: UserListScreenView(),
       ),
     );

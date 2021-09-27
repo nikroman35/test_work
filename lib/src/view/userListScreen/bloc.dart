@@ -4,8 +4,8 @@ import 'package:test_work/src/service/storage/user_storage.dart';
 import 'package:test_work/src/view/userListScreen/event.dart';
 import 'package:test_work/src/view/userListScreen/state.dart';
 
-class UserListBlock extends Bloc<UserListEvent, UserListState> {
-  UserListBlock() : super(UserListLoading()) {
+class UserListBloc extends Bloc<UserListEvent, UserListState> {
+  UserListBloc() : super(UserListLoading()) {
     add(UserListInit());
   }
 
@@ -39,7 +39,15 @@ class UserListBlock extends Bloc<UserListEvent, UserListState> {
   Stream<UserListState> updateData() async* {
     yield UserListLoading();
     var usersData = await RandomUserAPI().getUsers();
-    print(usersData);
-    yield UserListSuccess(usersData);
+    var userStorage = UserStorage();
+    await userStorage.openBox();
+    var localUserName = userStorage.userName;
+    if (localUserName != null) {
+      print(localUserName);
+      yield UserListSuccess(usersData, localUserName);
+    }
+    else {
+      // ?
+    }
   }
 }

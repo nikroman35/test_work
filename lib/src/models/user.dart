@@ -26,6 +26,56 @@ class DateOfBirthday {
   }
 }
 
+class Location {
+  Street? street;
+  String? city;
+  String? state;
+  String? country;
+  //int? postcode;
+  Coordinates? coordinates;
+
+  Location({this.street,
+    this.city,
+    this.state,
+    this.country,
+    //this.postcode,
+    this.coordinates});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    street = Street.fromJson(json['street']);
+    city = json['city'];
+    state = json['state'];
+    country = json['country'];
+    //postcode = json['postcode'];
+    coordinates = Coordinates.fromJson(json['coordinates']);
+  }
+}
+
+class Street {
+  int? number;
+  String? name;
+
+  Street({this.number, this.name});
+
+  Street.fromJson(Map<String, dynamic> json) {
+    number = json['number'];
+    name = json['name'];
+  }
+}
+
+class Coordinates {
+  String? latitude;
+  String? longitude;
+
+  Coordinates({this.latitude, this.longitude});
+
+  Coordinates.fromJson(Map<String, dynamic> json) {
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+  }
+
+}
+
 class Picture {
   String? large;
   String? medium;
@@ -46,12 +96,14 @@ class RandomUser {
   DateOfBirthday? dob;
   Picture? picture;
   String? gender;
+  Location? location;
 
   RandomUser({this.name,
     this.phone,
-    this.dob,
-    this.picture,
-    this.gender});
+      this.dob,
+      this.picture,
+      this.gender,
+      this.location});
 
   RandomUser.fromJson(Map<String, dynamic> json) {
     name = RandomUserName.fromJson(json['name']);
@@ -59,10 +111,11 @@ class RandomUser {
     dob = DateOfBirthday.fromJson(json['dob']);
     picture = Picture.fromJson(json['picture']);
     gender = json['gender'];
+    location = Location.fromJson(json['location']);
   }
 
   @override
   String toString() {
-    return 'RandomUser{name: $name, phone: $phone, dob: $dob, picture: $picture, gender: $gender}';
+    return 'RandomUser{name: $name, phone: $phone, dob: $dob, picture: $picture, gender: $gender, location: $location}';
   }
 }

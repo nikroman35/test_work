@@ -9,7 +9,8 @@ class UserLogoutFailure extends UserListState {}
 
 class UserListSuccess extends UserListState {
   final List<RandomUser> users;
+  final String localuser;
 
-  UserListSuccess(this.users);
+  UserListSuccess(this.users, this.localuser);
 }
 
