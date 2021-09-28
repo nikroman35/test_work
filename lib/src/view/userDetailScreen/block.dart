@@ -4,9 +4,7 @@ import 'package:test_work/src/view/userDetailScreen/event.dart';
 import 'package:test_work/src/view/userDetailScreen/state.dart';
 
 class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
-  UserDetailBloc(this.userData) : super(UserDetailLoading(userData)) {
-    print("kek");
-  }
+  UserDetailBloc(this.userData) : super(UserDetailLoading(userData));
 
   final UserPresentationOnDetail userData;
 
@@ -18,7 +16,6 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
   }
 
   Stream<UserDetailState> initData() async* {
-    // var userData = UserPresentationOnDetail();
     yield UserDetailLoading(userData);
   }
 

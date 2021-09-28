@@ -15,8 +15,8 @@ class UserOnPush extends UserListState {
 
 class UserListSuccess extends UserListState {
   final List<UserPresentationOnList> users;
-  final String localuser;
+  final String localUser;
 
-  UserListSuccess(this.users, this.localuser);
+  UserListSuccess(this.users, this.localUser);
 }
 

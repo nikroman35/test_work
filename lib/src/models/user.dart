@@ -31,14 +31,12 @@ class Location {
   String? city;
   String? state;
   String? country;
-  //int? postcode;
   Coordinates? coordinates;
 
   Location({this.street,
     this.city,
     this.state,
     this.country,
-    //this.postcode,
     this.coordinates});
 
   Location.fromJson(Map<String, dynamic> json) {
@@ -46,7 +44,6 @@ class Location {
     city = json['city'];
     state = json['state'];
     country = json['country'];
-    //postcode = json['postcode'];
     coordinates = Coordinates.fromJson(json['coordinates']);
   }
 }

@@ -59,7 +59,7 @@ class UserListScreenViewState extends State<UserListScreenView> {
       if (state is UserListSuccess) {
         return Scaffold(
           appBar: isSearch
-              ? customAppBar(state.localuser)
+              ? customAppBar(state.localUser)
               : CustomSearchBar(
                   searchBarCancelTap: () => searchButtonCancel(context)),
           body: SafeArea(
@@ -233,7 +233,6 @@ class ListItem extends StatelessWidget {
   }
 
   void tapListElement(BuildContext context, UserPresentationOnListName userID) {
-    // push
     context.read<UserListBloc>().add(UserListPush(userID));
   }
 }
