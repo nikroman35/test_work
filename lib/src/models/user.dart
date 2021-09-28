@@ -90,6 +90,18 @@ class Picture {
   }
 }
 
+class Id {
+  String? name;
+  String? value;
+
+  Id({this.name, this.value});
+
+  Id.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    value = json['value'];
+  }
+}
+
 class RandomUser {
   RandomUserName? name;
   String? phone;
@@ -97,13 +109,15 @@ class RandomUser {
   Picture? picture;
   String? gender;
   Location? location;
+  Id? userID;
 
   RandomUser({this.name,
     this.phone,
       this.dob,
       this.picture,
       this.gender,
-      this.location});
+      this.location,
+      this.userID});
 
   RandomUser.fromJson(Map<String, dynamic> json) {
     name = RandomUserName.fromJson(json['name']);
@@ -112,10 +126,11 @@ class RandomUser {
     picture = Picture.fromJson(json['picture']);
     gender = json['gender'];
     location = Location.fromJson(json['location']);
+    userID = Id.fromJson(json['id']);
   }
 
   @override
   String toString() {
-    return 'RandomUser{name: $name, phone: $phone, dob: $dob, picture: $picture, gender: $gender, location: $location}';
+    return 'RandomUser{name: $name, phone: $phone, dob: $dob, picture: $picture, gender: $gender, location: $location, id: $userID}';
   }
 }

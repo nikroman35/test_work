@@ -14,13 +14,6 @@ abstract class NetworkClient {
         receiveTimeout: 10000,
       )
     );
-    // dio.interceptors.add(LogInterceptor(
-    //   request: true,
-    //   requestHeader: true,
-    //   requestBody: true,
-    //   responseHeader: true,
-    //   responseBody: true,
-    // ));
     return dio;
   }
 

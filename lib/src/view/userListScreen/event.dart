@@ -1,3 +1,5 @@
+import 'package:test_work/src/models/users_presentation.dart';
+
 abstract class UserListEvent {}
 
 class UserListSearch extends UserListEvent {
@@ -9,3 +11,10 @@ class UserListSearch extends UserListEvent {
 class UserLogout extends UserListEvent {}
 
 class UserListInit extends UserListEvent {}
+
+class UserListPush extends UserListEvent {
+  UserPresentationOnListName user;
+
+  UserListPush(this.user);
+
+}
